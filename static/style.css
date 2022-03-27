@@ -1,0 +1,7 @@
+img {
+    max-width: 10%;
+    height: auto;
+}
+hr { display: block; height: 5px;
+    border: 0; border-top: 5px solid #ccc;
+    margin: 1em 0; padding: 0; }
