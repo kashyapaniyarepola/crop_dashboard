@@ -14,17 +14,18 @@ async def root():
 
 class Resp(BaseModel):
     uid: str
+    formId: str
     message: str
 
 
 @app.post("/fb")
 async def send(resp: Resp):
     print(resp)
-    return accept_form(uid=resp.uid, message=resp.message)
+    return accept_form(uid=resp.uid, formId=resp.formId, message=resp.message)
     # return send_message(uid=resp.uid, message=resp.message)
 
 
 app.mount("/", StaticFiles(directory="static", html=True), name="static")
 
 # if __name__ == "__main__":
-#     app.run(debug=False,port=8000)
+#     app.run(debug=True,port=8000)

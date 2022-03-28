@@ -10,37 +10,42 @@ async function getFirebase() {
     for (let i = 0; i < result.length; i++) {
         let template = `<table class="table table-hover table-bordered table-striped"><thead class="thead-dark"><th>Property</th><th>Data</th></thead>`;
         let uid = null;
+        let formId = null;
         let message = "";
         if ("media_location_latitude" in result[i]) {
             result[i]["map"] = parseLocation(result[i]["media_location_latitude"], result[i]["media_location_longitude"])
             console.log(result[i]["map"])
         }
-        Object.keys(result[i]).forEach(function (key) {
+        Object.keys(result[i]).forEach(function(key) {
             let value = result[i][key];
 
             let ins = `<tr><td>${key}</td><td>${parseValue(value)}</td></tr>`;
             if (key === "uid") {
                 uid = value
             }
+            if (key === "formId") {
+                formId = value
+            }
             template += ins;
         });
         template += "</table>"
         if (!message) {
-            template += `<div class="box"><input class="btn btn-default" type="button" value="Accept" onclick="accept_claim('${uid}')">
-                          <input class="btn btn-danger" type="button" value="Reject" onclick="reject_claim('${uid}')"></div>`
+            template += `<div class="box"><input class="btn btn-default" type="button" value="Accept" onclick="accept_claim('${uid}','${formId}')">
+                          <input class="btn btn-danger" type="button" value="Reject" onclick="reject_claim('${uid}','${formId}')"></div>`
         }
         template += "<hr/>"
         parent += template
-        // console.log(template)
+            // console.log(template)
     }
     element.innerHTML = parent;
 }
 
-async function accept_claim(uid) {
+async function accept_claim(uid, formId) {
     console.log("Accept btn", uid)
+    console.log("Accept form id", formId)
     let res = await fetch("/fb", {
         method: "POST",
-        body: JSON.stringify({uid: uid, message: "Accepted"}),
+        body: JSON.stringify({ uid: uid, formId: formId, message: "Accepted" }),
         headers: {
             'Content-Type': 'application/json'
         },
@@ -48,11 +53,11 @@ async function accept_claim(uid) {
     console.log(res)
 }
 
-async function reject_claim(uid) {
+async function reject_claim(uid, formId) {
     console.log("Rejected btn ", uid)
     let res = await fetch("/fb", {
         method: "POST",
-        body: JSON.stringify({uid: uid, message: "Rejected"}),
+        body: JSON.stringify({ uid: uid, formId: formId, message: "Rejected" }),
         headers: {
             'Content-Type': 'application/json'
         },
@@ -61,7 +66,7 @@ async function reject_claim(uid) {
 }
 
 function parseLocation(lat, long) {
-    function displayMap(){
+    function displayMap() {
         // TO MAKE THE MAP APPEAR YOU MUST
         // ADD YOUR ACCESS TOKEN FROM
         // https://account.mapbox.com
@@ -76,9 +81,9 @@ function parseLocation(lat, long) {
         const marker1 = new mapboxgl.Marker()
             .setLngLat([long, lat])
             .addTo(map);
-        console.log(lat,long)
+        console.log(lat, long)
     }
-    setTimeout(displayMap,3000,lat,long)
+    setTimeout(displayMap, 3000, lat, long)
     return `<div id="map" style="width: 500px;height: 500px"></div>`
 }
 

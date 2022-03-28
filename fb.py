@@ -64,10 +64,10 @@ def normalize_dict(d):
 #     print("   ----------------")
 # print(gov_message())
 # print(get_all_users())
-def accept_form(uid, message):
+def accept_form(uid, formId, message):
     try:
-        doc_ref = db.collection(u'users').document(uid).collection("forms").document()
-        doc_ref.set({
+        doc_ref = db.collection(u'users').document(uid).collection("forms").document(formId)
+        doc_ref.update({
             u'status': message
         })
     except Exception as e:
