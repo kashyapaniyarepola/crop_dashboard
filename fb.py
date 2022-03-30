@@ -2,6 +2,7 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 import pandas as pd
+from pydantic import conset
 
 # initializations
 cred = credentials.Certificate("firebase-service.json")
@@ -19,11 +20,19 @@ def get_all_users():
     out = []
     for doc in docs:
         user_data = doc.to_dict()['userData']
+        # print(user_data)
+        # print("-----------------------")
         # print(user_data['uid'])
         cols = get_sub_collections(user_data['uid'])
         for col in cols:
+            print(1)
+            print(user_data['uid'])
+            # print(col)
+            # print("************************************************")
             user_data.update(normalize_dict(col))
-        out.append(user_data)
+        # print(len(cols))
+        if len(cols)!=0:
+            out.append(user_data)
     return out
 
 

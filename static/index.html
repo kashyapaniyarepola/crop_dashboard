@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Agriculture Office</title>
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-<!--    <link rel="icon" type="image/x-icon" href="favicon.ico">-->
+    <!--    <link rel="icon" type="image/x-icon" href="favicon.ico">-->
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
     <style>
@@ -12,7 +13,8 @@
         #mapbox {
             position: relative;
             width: 500px;
-            margin: 0; padding: 0;
+            margin: 0;
+            padding: 0;
         }
     </style>
     <link rel='stylesheet' href='style.css' />
@@ -29,11 +31,19 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
-<body class="modal-body">
-<h1 class="h1">Officer's Dashboard</h1>
-<div id="main-ele" class="table-bordered">
 
-</div>
+<body class="modal-body">
+    <h1 class="h1">Officer's Dashboard</h1>
+    <!-- <div id="dropdown-main" class="dropdown-head"></div> -->
+    <div id="container"></div>
+</br>
+    <div>
+        <button id="generate">Select</button>
+    </div>
+
+    <div id="main-ele" class="table-bordered">
+
+    </div>
 </body>
 
 </html>
