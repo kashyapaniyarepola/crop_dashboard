@@ -18,15 +18,21 @@ async function getFirebase() {
         }
         Object.keys(result[i]).forEach(function(key) {
             let value = result[i][key];
-
-            let ins = `<tr><td>${key}</td><td>${parseValue(value)}</td></tr>`;
             if (key === "uid") {
                 uid = value
             }
-            if (key === "formId") {
+            else if (key==="token"){
+                let token=value;
+            }
+            else if (key === "formId") {
                 formId = value
             }
+            else{
+            let ins = `<tr><td>${key}</td><td>${parseValue(value)}</td></tr>`;
+            
+            
             template += ins;
+        }
         });
         template += "</table>"
         if (!message) {
