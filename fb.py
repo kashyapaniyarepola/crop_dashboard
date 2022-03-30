@@ -25,8 +25,8 @@ def get_all_users():
         # print(user_data['uid'])
         cols = get_sub_collections(user_data['uid'])
         for col in cols:
-            print(1)
-            print(user_data['uid'])
+            # print(1)
+            # print(user_data['uid'])
             # print(col)
             # print("************************************************")
             user_data.update(normalize_dict(col))

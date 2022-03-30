@@ -87,7 +87,7 @@ function parseLocation(lat, long) {
         const marker1 = new mapboxgl.Marker()
             .setLngLat([long, lat])
             .addTo(map);
-        console.log(lat, long)
+        // console.log(lat, long)
     }
     setTimeout(displayMap, 3000, lat, long)
     return `<div id="map" style="width: 500px;height: 500px"></div>`
@@ -122,6 +122,12 @@ async function getDropdown() {
     let result = await res.json()
     // var values = []
     var select = document.createElement("select");
+    // var button = document.createElement("select");
+    let btn = document.createElement("button");
+    btn.innerHTML = "Select";
+    btn.type="submit";
+
+
     select.name = "UserNames";
     select.id = "dropdownList"
     for (let i = 0; i < result.length; i++) {
@@ -146,12 +152,13 @@ async function getDropdown() {
     // }
 
     var label = document.createElement("label");
-    label.innerHTML = "Select username/nic: "
+    label.innerHTML = "Select Name / NIC: "
     label.htmlFor = "username";
 
-    document.getElementById("container").appendChild(label).appendChild(select);
+    
 
-    document.getElementById('generate').onclick = function () {
+    // document.getElementById('generate').onclick = function () {
+    btn.onclick = function () {
         // console.log("Button Click");
         var dropdownValue = document.getElementById("dropdownList").value;
         // var dropdownUid = document.getElementById("dropdownList").text;
@@ -174,7 +181,7 @@ async function getDropdown() {
                 let message = "";
                 if ("media_location_latitude" in result[i]) {
                     result[i]["map"] = parseLocation(result[i]["media_location_latitude"], result[i]["media_location_longitude"])
-                    console.log(result[i]["map"])
+                    // console.log(result[i]["map"])
                 }
                 Object.keys(result[i]).forEach(function (key) {
 
@@ -214,6 +221,8 @@ async function getDropdown() {
 
 
     }
+    document.getElementById("container").appendChild(label).appendChild(select);
+    document.getElementById("generate").appendChild(btn);
 }
 
 // getFirebase()
