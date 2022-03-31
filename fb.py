@@ -14,27 +14,51 @@ db = firestore.client()
 # doc_ref = db.collection('users').document('forms')
 
 
+# def get_all_usersOld():
+#     emp_ref = db.collection('users')
+#     docs = emp_ref.stream()
+#     out = []
+#     for doc in docs:
+#         user_data = doc.to_dict()['userData']
+#         # print(user_data)
+#         # print("-----------------------")
+#         # print(user_data['uid'])
+#         cols = get_sub_collections(user_data['uid'])
+#         for col in cols:
+#             print(1)
+#             # print(user_data['uid'])
+#             print(col)
+#             # print("************************************************")
+#             user_data.update(normalize_dict(col))
+#         # print(len(cols))
+#         if len(cols)!=0:
+#             out.append(user_data)
+#     return out
+
 def get_all_users():
     emp_ref = db.collection('users')
     docs = emp_ref.stream()
     out = []
     for doc in docs:
         user_data = doc.to_dict()['userData']
+        user_data2 = doc.to_dict()['userData']
         # print(user_data)
         # print("-----------------------")
         # print(user_data['uid'])
         cols = get_sub_collections(user_data['uid'])
         for col in cols:
-            # print(1)
+            print(1)
             # print(user_data['uid'])
-            # print(col)
-            # print("************************************************")
-            user_data.update(normalize_dict(col))
-        # print(len(cols))
-        if len(cols)!=0:
-            out.append(user_data)
+            print(col)
+            print("************************************************")
+            # user_data2 = doc.to_dict()['userData']
+            user_data2.update(normalize_dict(col))
+            out.append(user_data2)
+            print("---------------------------")
+            print(user_data2)
+        # if len(cols)!=0:
+        #     out.append(user_data)
     return out
-
 
 def get_sub_collections(doc_id):
     out = []

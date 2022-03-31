@@ -1,50 +1,50 @@
 console.log("Running the Application")
 
-async function getFirebase() {
-    let res = await fetch("/fb");
-    let result = await res.json()
+// async function getFirebase() {
+//     let res = await fetch("/fb");
+//     let result = await res.json()
 
-    let element = document.getElementById("main-ele");
-    // console.log(result)
-    let parent = "";
-    for (let i = 0; i < result.length; i++) {
-        let template = `<table class="table table-hover table-bordered table-striped"><thead class="thead-dark"><th>Property</th><th>Data</th></thead>`;
-        let uid = null;
-        let formId = null;
-        let message = "";
-        if ("media_location_latitude" in result[i]) {
-            result[i]["map"] = parseLocation(result[i]["media_location_latitude"], result[i]["media_location_longitude"])
-            console.log(result[i]["map"])
-        }
-        Object.keys(result[i]).forEach(function (key) {
-            let value = result[i][key];
-            if (key === "uid") {
-                uid = value
-            }
-            else if (key === "token") {
-                let token = value;
-            }
-            else if (key === "formId") {
-                formId = value
-            }
-            else {
-                let ins = `<tr><td>${key}</td><td>${parseValue(value)}</td></tr>`;
+//     let element = document.getElementById("main-ele");
+//     // console.log(result)
+//     let parent = "";
+//     for (let i = 0; i < result.length; i++) {
+//         let template = `<table class="table table-hover table-bordered table-striped"><thead class="thead-dark"><th>Property</th><th>Data</th></thead>`;
+//         let uid = null;
+//         let formId = null;
+//         let message = "";
+//         if ("media_location_latitude" in result[i]) {
+//             result[i]["map"] = parseLocation(result[i]["media_location_latitude"], result[i]["media_location_longitude"])
+//             console.log(result[i]["map"])
+//         }
+//         Object.keys(result[i]).forEach(function (key) {
+//             let value = result[i][key];
+//             if (key === "uid") {
+//                 uid = value
+//             }
+//             else if (key === "token") {
+//                 let token = value;
+//             }
+//             else if (key === "formId") {
+//                 formId = value
+//             }
+//             else {
+//                 let ins = `<tr><td>${key}</td><td>${parseValue(value)}</td></tr>`;
 
 
-                template += ins;
-            }
-        });
-        template += "</table>"
-        if (!message) {
-            template += `<div class="box"><input class="btn btn-default" type="button" value="Accept" onclick="accept_claim('${uid}','${formId}')">
-                          <input class="btn btn-danger" type="button" value="Reject" onclick="reject_claim('${uid}','${formId}')"></div>`
-        }
-        template += "<hr/>"
-        parent += template
-        // console.log(template)
-    }
-    element.innerHTML = parent;
-}
+//                 template += ins;
+//             }
+//         });
+//         template += "</table>"
+//         if (!message) {
+//             template += `<div class="box"><input class="btn btn-default" type="button" value="Accept" onclick="accept_claim('${uid}','${formId}')">
+//                           <input class="btn btn-danger" type="button" value="Reject" onclick="reject_claim('${uid}','${formId}')"></div>`
+//         }
+//         template += "<hr/>"
+//         parent += template
+//         // console.log(template)
+//     }
+//     element.innerHTML = parent;
+// }
 
 async function accept_claim(uid, formId) {
     console.log("Accept btn", uid)
@@ -130,15 +130,23 @@ async function getDropdown() {
 
     select.name = "UserNames";
     select.id = "dropdownList"
+    var uniqueUsers = []
+
     for (let i = 0; i < result.length; i++) {
-        // console.log(result[i].fullName+' : '+result[i].nic);
-        const dropdownItem = result[i].fullName + ' : ' + result[i].nic;
-        // values.push(result[i].fullName+' : '+result[i].nic);
-        var option = document.createElement("option");
-        option.value = result[i].uid;
-        // option.text = dropdownItem.charAt(0).toUpperCase() + dropdownItem.slice(1);
-        option.text = dropdownItem;
-        select.appendChild(option);
+        if ((uniqueUsers.includes(result[i].uid))===false) {
+            uniqueUsers.push(result[i].uid)
+            // console.log(result[i].fullName+' : '+result[i].nic);
+            const dropdownItem = result[i].fullName + ' : ' + result[i].nic;
+            // values.push(result[i].fullName+' : '+result[i].nic);
+            var option = document.createElement("option");
+            option.value = result[i].uid;
+            // option.text = dropdownItem.charAt(0).toUpperCase() + dropdownItem.slice(1);
+            option.text = dropdownItem;
+            select.appendChild(option);
+
+            console.log(result[i].uid);
+        }
+
     }
     // var select = document.createElement("select");
     // select.name = "pets";
