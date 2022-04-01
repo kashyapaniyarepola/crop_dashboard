@@ -41,7 +41,7 @@ def get_all_users():
     out = []
     for doc in docs:
         user_data = doc.to_dict()['userData']
-        user_data2 = doc.to_dict()['userData']
+        # user_data2 = doc.to_dict()['userData']
         # print(user_data)
         # print("-----------------------")
         # print(user_data['uid'])
@@ -52,6 +52,7 @@ def get_all_users():
             print(col)
             print("************************************************")
             # user_data2 = doc.to_dict()['userData']
+            user_data2 = doc.to_dict()['userData']
             user_data2.update(normalize_dict(col))
             out.append(user_data2)
             print("---------------------------")

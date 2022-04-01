@@ -56,6 +56,8 @@ async function accept_claim(uid, formId) {
             'Content-Type': 'application/json'
         },
     });
+    // $('#largeModal').modal('show');
+    modal();
     console.log(res)
 }
 
@@ -68,7 +70,18 @@ async function reject_claim(uid, formId) {
             'Content-Type': 'application/json'
         },
     });
+    modal();
     console.log(res)
+}
+
+function modal(){
+    $('#largeModal').modal('show');
+    // location.reload();
+    var modalOk = document.getElementById("modalOk");
+    modalOk.onclick = function () {
+        location.reload();
+    }
+
 }
 
 function parseLocation(lat, long) {
@@ -125,7 +138,7 @@ async function getDropdown() {
     // var button = document.createElement("select");
     let btn = document.createElement("button");
     btn.innerHTML = "Select";
-    btn.type="submit";
+    btn.type = "submit";
 
 
     select.name = "UserNames";
@@ -133,7 +146,7 @@ async function getDropdown() {
     var uniqueUsers = []
 
     for (let i = 0; i < result.length; i++) {
-        if ((uniqueUsers.includes(result[i].uid))===false) {
+        if ((uniqueUsers.includes(result[i].uid)) === false) {
             uniqueUsers.push(result[i].uid)
             // console.log(result[i].fullName+' : '+result[i].nic);
             const dropdownItem = result[i].fullName + ' : ' + result[i].nic;
@@ -163,7 +176,7 @@ async function getDropdown() {
     label.innerHTML = "Select Name / NIC: "
     label.htmlFor = "username";
 
-    
+
 
     // document.getElementById('generate').onclick = function () {
     btn.onclick = function () {
@@ -216,7 +229,8 @@ async function getDropdown() {
                 template += "</table>"
                 if (!message) {
                     template += `<div class="box"><input class="btn btn-default" type="button" value="Accept" onclick="accept_claim('${uid}','${formId}')">
-                          <input class="btn btn-danger" type="button" value="Reject" onclick="reject_claim('${uid}','${formId}')"></div>`
+                          <input class="btn btn-danger" type="button" value="Reject" onclick="reject_claim('${uid}','${formId}')"></div> `
+
                 }
                 template += "<hr/>"
                 parent += template

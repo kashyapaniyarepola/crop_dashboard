@@ -33,21 +33,46 @@
 </head>
 
 <body class="modal-body">
-    <h1 class="h1">Officer's Dashboard</h1>
+    <h1 class="h1  header">Officer's Dashboard</h1>
     <!-- <div id="dropdown-main" class="dropdown-head"></div> -->
-    
-    
+
+
     <table>
         <tr>
-            <td><h3><div id="container"></div></h3></td>
+            <td>
+                <h3>
+                    <div id="container"></div>
+                </h3>
+            </td>
             <td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </td>
-            <td><h3><div id="generate"></div></h3></td>
+            <td>
+                <h3>
+                    <div id="generate"></div>
+                </h3>
+            </td>
         </tr>
     </table>
 
-    <div id="main-ele" class="table-bordered">
+    <div id="main-ele" class="table-bordered"></div>
 
-    </div>
+    <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <!-- <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="myModalLabel">Large Modal</h4>
+            </div> -->
+            <div class="modal-body">
+              <h3>Status has been Updated...</h3>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal" id="modalOk">Ok</button>
+              <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+            </div>
+          </div>
+        </div>
+      </div>
+
 </body>
 
 </html>
