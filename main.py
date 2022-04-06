@@ -20,12 +20,9 @@ class Resp(BaseModel):
 
 @app.post("/fb")
 async def send(resp: Resp):
-    print(resp)
+    # print(resp)
     return accept_form(uid=resp.uid, formId=resp.formId, message=resp.message)
     # return send_message(uid=resp.uid, message=resp.message)
 
 
 app.mount("/", StaticFiles(directory="static", html=True), name="static")
-
-# if __name__ == "__main__":
-#     app.run(debug=True,port=8000)

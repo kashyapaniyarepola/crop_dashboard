@@ -10,53 +10,18 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 
-#
-# doc_ref = db.collection('users').document('forms')
-
-
-# def get_all_usersOld():
-#     emp_ref = db.collection('users')
-#     docs = emp_ref.stream()
-#     out = []
-#     for doc in docs:
-#         user_data = doc.to_dict()['userData']
-#         # print(user_data)
-#         # print("-----------------------")
-#         # print(user_data['uid'])
-#         cols = get_sub_collections(user_data['uid'])
-#         for col in cols:
-#             print(1)
-#             # print(user_data['uid'])
-#             print(col)
-#             # print("************************************************")
-#             user_data.update(normalize_dict(col))
-#         # print(len(cols))
-#         if len(cols)!=0:
-#             out.append(user_data)
-#     return out
-
 def get_all_users():
     emp_ref = db.collection('users')
     docs = emp_ref.stream()
     out = []
     for doc in docs:
         user_data = doc.to_dict()['userData']
-        # user_data2 = doc.to_dict()['userData']
-        # print(user_data)
-        # print("-----------------------")
-        # print(user_data['uid'])
         cols = get_sub_collections(user_data['uid'])
         for col in cols:
-            print(1)
-            # print(user_data['uid'])
-            print(col)
-            print("************************************************")
             # user_data2 = doc.to_dict()['userData']
             user_data2 = doc.to_dict()['userData']
             user_data2.update(normalize_dict(col))
             out.append(user_data2)
-            print("---------------------------")
-            print(user_data2)
         # if len(cols)!=0:
         #     out.append(user_data)
     return out
@@ -80,7 +45,7 @@ def gov_message(doc_id, collection_name="govMessages"):
             if i.to_dict()['message']:
                 return i.to_dict()['message']
     else:
-        print(u'No such document!', doc_id)
+        # print(u'No such document!', doc_id)
         return False
 
 
@@ -92,12 +57,6 @@ def normalize_dict(d):
         return dict()
 
 
-#
-# for i in get_sub_collections():
-#     print(normalize_dict(i))
-#     print("   ----------------")
-# print(gov_message())
-# print(get_all_users())
 def accept_form(uid, formId, message):
     try:
         doc_ref = db.collection(u'users').document(uid).collection("forms").document(formId)
@@ -105,17 +64,6 @@ def accept_form(uid, formId, message):
             u'status': message
         })
     except Exception as e:
-        print(e)
+        # print(e)
         return e
 
-
-# def send_message(uid, message):
-#     try:
-#         doc_ref = db.collection(u'users').document(uid).collection("govMessages").document()
-#         doc_ref.set({
-#             u'message': message
-#         })
-#         return True
-#     except Exception as e:
-#         print(e)
-#         return e
